@@ -1,0 +1,88 @@
+# Wiz CLI Configuration
+# This file configures the Wiz security scanner for this repository
+
+# Scan policies
+policies:
+  # Enable vulnerability scanning
+  - id: vulnerability-scan
+    enabled: true
+    severity: HIGH,CRITICAL
+    
+  # Enable secrets detection
+  - id: secrets-detection
+    enabled: true
+    
+  # Enable infrastructure as code scanning
+  - id: iac-scan
+    enabled: true
+    severity: HIGH,CRITICAL
+    
+  # Enable container image scanning
+  - id: container-scan
+    enabled: true
+    severity: MEDIUM,HIGH,CRITICAL
+
+# Scan configuration
+scan:
+  # Scan type: full, quick, or custom
+  type: full
+  
+  # Paths to include in scan
+  include:
+    - "**/*"
+  
+  # Paths to exclude from scan
+  exclude:
+    - "**/node_modules/**"
+    - "**/vendor/**"
+    - "**/.git/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/.terraform/**"
+    - "**/terraform.tfstate*"
+
+# Reporting configuration
+reporting:
+  # Output format: json, sarif, html, or text
+  format: json
+  
+  # Report destination
+  output: wiz-scan-results.json
+  
+  # Fail build on findings
+  fail_on_severity: CRITICAL
+  
+  # Generate detailed report
+  detailed: true
+
+# Integration settings
+integration:
+  # Enable GitHub integration
+  github:
+    enabled: true
+    create_issues: false
+    
+  # Enable Slack notifications (configure webhook separately)
+  slack:
+    enabled: false
+    
+  # Enable email notifications
+  email:
+    enabled: false
+
+# Advanced settings
+advanced:
+  # Maximum scan timeout (in minutes)
+  timeout: 30
+  
+  # Enable parallel scanning
+  parallel: true
+  
+  # Number of parallel workers
+  workers: 4
+  
+  # Enable verbose logging
+  verbose: false
+  
+  # Enable debug mode
+  debug: false
